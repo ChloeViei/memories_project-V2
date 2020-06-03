@@ -1,10 +1,21 @@
 const mongoose = require('mongoose');
 
-var Employee = mongoose.model('Employee', {
-    name: { type: String },
-    position: { type: String },
-    office: { type: String },
-    salary: { type: Number }
+let memorySchema = new mongoose.Schema({
+    author: {
+        type: String
+    },
+    title: {
+        type: String,
+        required: 'Title can\'t be empty'
+    },
+    text: {
+        type: String,
+        required: 'Text can\'t be empty'
+    },
+    date: {
+        type: Date
+    }
 });
 
-module.exports = { Employee };
+
+mongoose.model('Memory', memorySchema);

@@ -4,7 +4,7 @@ const _ = require('lodash');
 
 const User = mongoose.model('User');
 
-module.exports.register = (req, res, next) => {
+module.exports.registerUser = (req, res, next) => {
     var user = new User();
     user.fullName = req.body.fullName;
     user.email = req.body.email;
@@ -20,7 +20,7 @@ module.exports.register = (req, res, next) => {
         }
 
     });
-}
+};
 
 module.exports.authenticate = (req, res, next) => {
     // call for passport authentication
@@ -32,7 +32,7 @@ module.exports.authenticate = (req, res, next) => {
         // unknown user or wrong password
         else return res.status(404).json(info);
     })(req, res);
-}
+};
 
 module.exports.userProfile = (req, res, next) =>{
     User.findOne({ _id: req._id },
@@ -43,4 +43,4 @@ module.exports.userProfile = (req, res, next) =>{
                 return res.status(200).json({ status: true, user : _.pick(user,['fullName','email']) });
         }
     );
-}
+};
