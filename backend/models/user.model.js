@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-var userSchema = new mongoose.Schema({
+let userSchema = new mongoose.Schema({
     fullName: {
         type: String,
         required: 'Full name can\'t be empty'
