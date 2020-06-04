@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 
 let memorySchema = new mongoose.Schema({
-    author: {
-        type: String
-    },
+    author: [{
+        type: mongoose.Schema.Types.ObjectId, ref: 'User'
+    }],
     title: {
         type: String,
         required: 'Title can\'t be empty'
@@ -13,7 +13,7 @@ let memorySchema = new mongoose.Schema({
         required: 'Text can\'t be empty'
     },
     date: {
-        type: Date
+        type: Number
     }
 });
 

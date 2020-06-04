@@ -14,7 +14,9 @@ router.get('/userProfile',jwtHelper.verifyJwtToken, ctrlUser.userProfile);
 // Route memory
 router.get('/memories', ctrlMemory.allMemories);
 router.get('/memory', ctrlMemory.oneMemory);
-router.post('/registermemory', ctrlMemory.registerMemory());
+router.post('/registermemory', ctrlMemory.registerMemory);
+router.put('/memorymodificate', ctrlMemory.memoryModification);
+router.delete('/memorydelete', ctrlMemory.memoryDelete);
 
 
 module.exports = router;

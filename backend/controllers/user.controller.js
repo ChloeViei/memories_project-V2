@@ -5,7 +5,7 @@ const _ = require('lodash');
 const User = mongoose.model('User');
 
 module.exports.registerUser = (req, res, next) => {
-    var user = new User();
+    let user = new User();
     user.fullName = req.body.fullName;
     user.email = req.body.email;
     user.password = req.body.password;

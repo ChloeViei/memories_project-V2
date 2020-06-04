@@ -1,11 +1,7 @@
-const express = require('express');
-const router = express.Router();
-const ObjectId = require('mongoose').Types.ObjectId;
+const mongoose = require('mongoose');
 const _ = require('lodash');
 
-
 const Memory = mongoose.model('Memory');
-
 
 module.exports.allMemories = (req, res, next) =>{
     Memory.find((err, memories) => {
@@ -18,7 +14,7 @@ module.exports.allMemories = (req, res, next) =>{
 
 
 module.exports.oneMemory = (req, res, next) =>{
-    if (!ObjectId.isValid(req._id))
+    if (!mongoose.Schema.Types.ObjectId.isValid(req._id))
         return res.status(400).send(`No record with given id : ${req._id}`);
 
     Memory.findOne({ _id: req._id },
@@ -49,30 +45,38 @@ module.exports.registerMemory = (req, res, next) => {
 };
 
 
-router.put('/:id', (req, res) => {
-    if (!ObjectId.isValid(req.params.id))
-        return res.status(400).send(`No record with given id : ${req.params.id}`);
+module.exports.memoryModification = (req, res, next) =>{
+    if (!mongoose.Schema.Types.ObjectId.isValid(req._id))
+        return res.status(400).send(`No record with given id : ${req._id}`);
 
-    var emp = {
+    let mem = {
         name: req.body.name,
         position: req.body.position,
         office: req.body.office,
         salary: req.body.salary,
     };
-    Memory.findByIdAndUpdate(req.params.id, { $set: emp }, { new: true }, (err, doc) => {
-        if (!err) { res.send(doc); }
-        else { console.log('Error in Employee Update :' + JSON.stringify(err, undefined, 2)); }
+
+    Memory.findByIdAndUpdate(req._id, { $set: mem }, { new: true }, (err, memory) => {
+        if (!err) {
+            res.send(memory);
+        }
+        else {
+            res.status(404).json({ status: false, message: 'Error in Memory Update' });
+        }
     });
-});
+};
 
-router.delete('/:id', (req, res) => {
-    if (!ObjectId.isValid(req.params.id))
-        return res.status(400).send(`No record with given id : ${req.params.id}`);
 
-    Memory.findByIdAndRemove(req.params.id, (err, doc) => {
-        if (!err) { res.send(doc); }
-        else { console.log('Error in Employee Delete :' + JSON.stringify(err, undefined, 2)); }
+module.exports.memoryDelete = (req, res, next) =>{
+    if (!mongoose.Schema.Types.ObjectId.isValid(req._id))
+        return res.status(400).send(`No record with given id : ${req._id}`);
+
+    Memory.findByIdAndRemove(req._id, (err, memory) => {
+        if (!err) {
+            res.send(memory);
+        }
+        else {
+            res.status(404).json({ status: false, message: 'Error in Memory Delete' });
+        }
     });
-});
-
-module.exports = router;
+};
