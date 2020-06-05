@@ -9,9 +9,17 @@
               <div class="row">
                 <div class="input-field col s12">
                   <label>
-                    <input type="text" name="name" #name="ngModel" [(ngModel)]="memoryService.selectedMemory.author" placeholder="Enter full name" required>
+                    <input type="text" name="author" #author="ngModel" [(ngModel)]="memoryService.selectedMemory._id" placeholder="{{userDetails._id}}" disabled>
                   </label>
-                  <label>Author :
+                  <label>Author :</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12">
+                  <label>
+                    <input type="text" name="title" #title="ngModel" [(ngModel)]="memoryService.selectedMemory.title" placeholder="Title">
+                  </label>
+                  <label>Title :
                     <label class="red-text">*</label>
                   </label>
                 </div>
@@ -19,25 +27,9 @@
               <div class="row">
                 <div class="input-field col s12">
                   <label>
-                    <input type="text" name="position" #name="ngModel" [(ngModel)]="memoryService.selectedMemory.title" placeholder="Eg : Snr. Developer">
-                  </label>
-                  <label>Title :</label>
-                </div>
-              </div>
-              <div class="row">
-                <div class="input-field col s12">
-                  <label>
-                    <input type="text" name="office" #name="ngModel" [(ngModel)]="memoryService.selectedMemory.text" placeholder="Enter office location">
+                    <input type="text" name="text" #text="ngModel" [(ngModel)]="memoryService.selectedMemory.text" placeholder="Your text">
                   </label>
                   <label>Text :</label>
-                </div>
-              </div>
-              <div class="row">
-                <div class="input-field col s12">
-                  <label>
-                    <input type="text" name="salary" #name="ngModel" [(ngModel)]="memoryService.selectedMemory.date" placeholder="Salary per annum">
-                  </label>
-                  <label>Date :</label>
                 </div>
               </div>
               <div class="row">

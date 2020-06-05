@@ -12,8 +12,9 @@ let memorySchema = new mongoose.Schema({
         type: String,
         required: 'Text can\'t be empty'
     },
-    date: {
-        type: Number
+    createdAt: {
+        type: Date,
+        default: Date.now
     }
 });
 

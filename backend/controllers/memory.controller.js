@@ -46,14 +46,14 @@ module.exports.registerMemory = (req, res, next) => {
 
 
 module.exports.memoryModification = (req, res, next) =>{
-    if (!mongoose.Schema.Types.ObjectId.isValid(req._id))
+    if (!mongoose.Schema.Types.ObjectId.isValid(req._id)) {
         return res.status(400).send(`No record with given id : ${req._id}`);
+    }
 
     let mem = {
-        name: req.body.name,
-        position: req.body.position,
-        office: req.body.office,
-        salary: req.body.salary,
+        author: req.body.author,
+        title: req.body.title,
+        text: req.body.text,
     };
 
     Memory.findByIdAndUpdate(req._id, { $set: mem }, { new: true }, (err, memory) => {

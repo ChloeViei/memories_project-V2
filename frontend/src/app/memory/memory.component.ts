@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 
 import { MemoryService } from '../shared/memory/memory.service';
 import { Memory } from '../shared/memory/memory.model';
+import {UserService} from '../shared/user/user.service';
 
 declare var M: any;
 
@@ -15,11 +16,25 @@ declare var M: any;
 
 export class MemoryComponent implements OnInit {
 
-  constructor(private memoryService: MemoryService) { }
+  userDetails;
+  showSucessMessage: boolean;
+  serverErrorMessages: string;
+
+  constructor(private userService: UserService, private memoryService: MemoryService) { }
 
   ngOnInit() {
     this.resetForm();
     this.refreshMemoryList();
+
+    // Récupération des informations de l'utilisateur
+    this.userService.getUserPayload().subscribe(
+      res => {
+        this.userDetails = res['user'];
+      },
+      err => {
+        console.log(err);
+      }
+    );
   }
 
   resetForm(form?: NgForm) {
@@ -33,6 +48,7 @@ export class MemoryComponent implements OnInit {
       text: '',
       date: null
     };
+    this.serverErrorMessages = '';
   }
 
   onSubmit(form: NgForm) {
