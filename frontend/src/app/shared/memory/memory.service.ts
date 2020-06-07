@@ -12,19 +12,19 @@ export class MemoryService {
   constructor(private http: HttpClient) { }
 
   postMemory(mem: Memory) {
-    return this.http.post(environment.apiBaseUrl, mem);
+    return this.http.post(environment.apiBaseUrl + '/registermemory', mem);
   }
 
   getMemoryList() {
-    return this.http.get(environment.apiBaseUrl);
+    return this.http.get(environment.apiBaseUrl + '/memories');
   }
 
   putMemory(mem: Memory) {
-    return this.http.put(environment.apiBaseUrl + `/${mem._id}`, mem);
+    return this.http.put(environment.apiBaseUrl + '/${mem._id}', mem);
   }
 
   deleteMemory(_id: string) {
-    return this.http.delete(environment.apiBaseUrl + `/${_id}`);
+    return this.http.delete(environment.apiBaseUrl + '/${_id}');
   }
 
 }

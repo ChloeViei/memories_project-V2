@@ -6,7 +6,7 @@ const User = mongoose.model('User');
 
 module.exports.registerUser = (req, res, next) => {
     let user = new User();
-    user.fullName = req.body.fullName;
+    user.name = req.body.name;
     user.email = req.body.email;
     user.password = req.body.password;
     user.save((err, doc) => {
@@ -40,7 +40,7 @@ module.exports.userProfile = (req, res, next) =>{
             if (!user)
                 return res.status(404).json({ status: false, message: 'User record not found.' });
             else
-                return res.status(200).json({ status: true, user : _.pick(user,['fullName','email']) });
+                return res.status(200).json({ status: true, user : _.pick(user,['name','email']) });
         }
     );
 };

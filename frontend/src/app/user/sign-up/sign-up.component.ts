@@ -23,6 +23,7 @@ export class SignUpComponent implements OnInit {
     this.userService.postUser(form.value).subscribe(
       res => {
         this.showSucessMessage = true;
+        console.log(form.value);
         setTimeout(() => this.showSucessMessage = false, 4000);
         this.resetForm(form);
       },
@@ -38,8 +39,7 @@ export class SignUpComponent implements OnInit {
 
   resetForm(form: NgForm) {
     this.userService.selectedUser = {
-      _id: '',
-      fullName: '',
+      name: '',
       email: '',
       password: ''
     };

@@ -3,9 +3,9 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 let userSchema = new mongoose.Schema({
-    fullName: {
+    name: {
         type: String,
-        required: 'Full name can\'t be empty'
+        required: 'Name can\'t be empty'
     },
     email: {
         type: String,
@@ -51,8 +51,7 @@ userSchema.methods.generateJwt = function () {
     {
         expiresIn: process.env.JWT_EXP
     });
-}
-
+};
 
 
 mongoose.model('User', userSchema);

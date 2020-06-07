@@ -20,9 +20,9 @@ export const appRoutes: Routes = [
         path: '', redirectTo: '/login', pathMatch: 'full'
     },
     {
-      path: 'userprofile', component: UserProfileComponent, canActivate: [AuthGuard]
+        path: 'userprofile', component: UserProfileComponent, canActivate: [AuthGuard]
     },
     {
-      path: 'memories', component: MemoryComponent, canActivate: [AuthGuard]
+        path: 'memories', component: MemoryComponent, canActivate: [AuthGuard]
     }
 ];

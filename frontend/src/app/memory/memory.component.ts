@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 
 import { MemoryService } from '../shared/memory/memory.service';
 import { Memory } from '../shared/memory/memory.model';
-import {UserService} from '../shared/user/user.service';
+import {Router} from '@angular/router';
 
 declare var M: any;
 
@@ -16,25 +16,25 @@ declare var M: any;
 
 export class MemoryComponent implements OnInit {
 
-  userDetails;
   showSucessMessage: boolean;
   serverErrorMessages: string;
 
-  constructor(private userService: UserService, private memoryService: MemoryService) { }
+  constructor(private memoryService: MemoryService, private router: Router) { }
 
   ngOnInit() {
     this.resetForm();
     this.refreshMemoryList();
 
-    // Récupération des informations de l'utilisateur
-    this.userService.getUserPayload().subscribe(
-      res => {
-        this.userDetails = res['user'];
-      },
-      err => {
-        console.log(err);
-      }
-    );
+    // // Récupération des informations de l'utilisateur
+    // this.userService.getUserPayload().subscribe(
+    //   res => {
+    //     this.userDetails = res['user'];
+    //     console.log(this.userDetails);
+    //   },
+    //   err => {
+    //     console.log(err);
+    //   }
+    // );
   }
 
   resetForm(form?: NgForm) {
@@ -86,5 +86,10 @@ export class MemoryComponent implements OnInit {
       });
     }
   }
+
+  // onLogout() {
+  //   this.userService.deleteToken();
+  //   this.router.navigate(['/login']);
+  // }
 
 }
