@@ -3,7 +3,8 @@ import { NgForm } from '@angular/forms';
 
 import { MemoryService } from '../shared/memory/memory.service';
 import { Memory } from '../shared/memory/memory.model';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
+import { UserService } from '../shared/user/user.service';
 
 declare var M: any;
 
@@ -19,22 +20,13 @@ export class MemoryComponent implements OnInit {
   showSucessMessage: boolean;
   serverErrorMessages: string;
 
-  constructor(private memoryService: MemoryService, private router: Router) { }
+  constructor(private memoryService: MemoryService, private userService: UserService, private router: Router) { }
 
   ngOnInit() {
     this.resetForm();
     this.refreshMemoryList();
 
-    // // Récupération des informations de l'utilisateur
-    // this.userService.getUserPayload().subscribe(
-    //   res => {
-    //     this.userDetails = res['user'];
-    //     console.log(this.userDetails);
-    //   },
-    //   err => {
-    //     console.log(err);
-    //   }
-    // );
+    console.log(this.memoryService.memories);
   }
 
   resetForm(form?: NgForm) {
@@ -45,8 +37,7 @@ export class MemoryComponent implements OnInit {
       _id: '',
       author: '',
       title: '',
-      text: '',
-      date: null
+      text: ''
     };
     this.serverErrorMessages = '';
   }
@@ -68,9 +59,13 @@ export class MemoryComponent implements OnInit {
   }
 
   refreshMemoryList() {
-    this.memoryService.getMemoryList().subscribe((res) => {
+    this.memoryService.getMemoryList().subscribe(
+      res => {
       this.memoryService.memories = res as Memory[];
-    });
+    },
+      err => {
+        console.log(err);
+      });
   }
 
   onEdit(mem: Memory) {
@@ -87,9 +82,9 @@ export class MemoryComponent implements OnInit {
     }
   }
 
-  // onLogout() {
-  //   this.userService.deleteToken();
-  //   this.router.navigate(['/login']);
-  // }
+  onLogout() {
+    this.userService.deleteToken();
+    this.router.navigate(['/login']);
+  }
 
 }

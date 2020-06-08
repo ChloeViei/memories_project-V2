@@ -3,5 +3,4 @@ export class Memory {
   author: string;
   title: string;
   text: string;
-  date: number;
 }

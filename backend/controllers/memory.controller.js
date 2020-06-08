@@ -8,7 +8,7 @@ module.exports.allMemories = (req, res, next) =>{
         if (!memories)
             return res.status(404).json({ status: false, message: 'Error in Retriving Memories' });
         else
-            return res.status(200).json({ status: true, memories });
+            return res.send(memories);
     });
 };
 
@@ -22,7 +22,7 @@ module.exports.oneMemory = (req, res, next) =>{
             if (!memory)
                 return res.status(404).json({ status: false, message: 'Memory record not found.' });
             else
-                return res.status(200).json({ status: true, memory : memory });
+                return res.send(memory);
         }
     );
 };
@@ -33,8 +33,9 @@ module.exports.registerMemory = (req, res, next) => {
     memory.author = req.body.author;
     memory.title = req.body.title;
     memory.text = req.body.text;
+    memory.date = req.body.date;
 
-    memory.save((err, memory) => {
+        memory.save((err, memory) => {
         if (!err)
             res.send(memory);
         else {
@@ -49,11 +50,11 @@ module.exports.memoryModification = (req, res, next) =>{
     if (!mongoose.Schema.Types.ObjectId.isValid(req._id)) {
         return res.status(400).send(`No record with given id : ${req._id}`);
     }
-
     let mem = {
         author: req.body.author,
         title: req.body.title,
         text: req.body.text,
+        date: req.body.date,
     };
 
     Memory.findByIdAndUpdate(req._id, { $set: mem }, { new: true }, (err, memory) => {
