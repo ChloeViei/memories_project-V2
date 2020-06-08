@@ -58,7 +58,7 @@ module.exports.memoryModification = (req, res, next) =>{
         date: req.body.date,
     };
 
-    Memory.findByIdAndUpdate(req._id, { $set: mem }, { new: true }, (err, memory) => {
+    Memory.findByIdAndUpdate(req.body._id, { $set: mem }, { new: true }, (err, memory) => {
         if (!err) {
             res.send(memory);
         }
@@ -76,7 +76,6 @@ module.exports.memoryDelete = (req, res, next) =>{
 
     Memory.findByIdAndRemove(req.params.id, (err, memory) => {
         if (!err) {
-            console.log(memory);
             res.send(memory);
         }
         else {
