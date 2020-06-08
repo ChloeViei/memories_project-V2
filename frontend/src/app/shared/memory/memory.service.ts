@@ -20,11 +20,11 @@ export class MemoryService {
   }
 
   putMemory(mem: Memory) {
-    return this.http.put(environment.apiBaseUrl + '/${mem._id}', mem);
+    return this.http.put(environment.apiBaseUrl + `/${mem._id}`, mem);
   }
 
   deleteMemory(_id: string) {
-    return this.http.delete(environment.apiBaseUrl + '/${_id}');
+    return this.http.delete(environment.apiBaseUrl + `/${_id}`);
   }
 
 }
