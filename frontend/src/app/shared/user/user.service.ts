@@ -9,6 +9,7 @@ import { User } from './user.model';
 })
 export class UserService {
   selectedUser: User = {
+    _id: '',
     name: '',
     email: '',
     password: ''
@@ -28,7 +29,7 @@ export class UserService {
     return this.http.post(environment.apiBaseUrl + '/authenticate', authCredentials, this.noAuthHeader);
   }
 
-  getUserProfile() {
+  getUserInfo() {
     return this.http.get(environment.apiBaseUrl + '/userProfile');
   }
 

@@ -13,9 +13,10 @@ export class UserProfileComponent implements OnInit {
   constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit() {
-    this.userService.getUserProfile().subscribe(
+    this.userService.getUserInfo().subscribe(
       res => {
         this.userDetails = res['user'];
+        console.log(this.userDetails);
       },
       err => {
         console.log(err);

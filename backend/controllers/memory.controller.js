@@ -30,13 +30,14 @@ module.exports.oneMemory = (req, res, next) =>{
 
 
 module.exports.registerMemory = (req, res, next) => {
-    let memory = new Memory();
-    memory.author = req.body.author;
-    memory.title = req.body.title;
-    memory.text = req.body.text;
-    memory.date = req.body.date;
+    let mem = new Memory ({
+        author: req.body.author,
+        title: req.body.title,
+        text: req.body.text,
+        createdAt: req.body.createdAt,
+    });
 
-        memory.save((err, memory) => {
+    mem.save(function (err, memory) {
         if (!err)
             res.send(memory);
         else {
@@ -55,7 +56,7 @@ module.exports.memoryModification = (req, res, next) =>{
         author: req.body.author,
         title: req.body.title,
         text: req.body.text,
-        date: req.body.date,
+        createdAt: req.body.createdAt,
     };
 
     Memory.findByIdAndUpdate(req.body._id, { $set: mem }, { new: true }, (err, memory) => {

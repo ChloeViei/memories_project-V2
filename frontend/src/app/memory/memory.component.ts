@@ -19,6 +19,7 @@ export class MemoryComponent implements OnInit {
 
   showSucessMessage: boolean;
   serverErrorMessages: string;
+  userInfo;
 
   constructor(private memoryService: MemoryService, private userService: UserService, private router: Router) { }
 
@@ -26,7 +27,15 @@ export class MemoryComponent implements OnInit {
     this.resetForm();
     this.refreshMemoryList();
 
-    console.log(this.memoryService.memories);
+    this.userService.getUserInfo().subscribe(
+      res => {
+        this.userInfo = res['user'];
+        console.log(this.userInfo);
+      },
+      err => {
+        console.log(err);
+      }
+    );
   }
 
   resetForm(form?: NgForm) {
@@ -43,6 +52,9 @@ export class MemoryComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
+
+    form.value.author = this.userInfo._id;
+
     if (form.value._id === '') {
       this.memoryService.postMemory(form.value).subscribe((res) => {
         this.resetForm(form);
